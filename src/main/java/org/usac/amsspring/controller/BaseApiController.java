@@ -40,7 +40,7 @@ public abstract class BaseApiController extends HttpServlet
             }
             else {
                 address = new Address(request.getParameter("firm"),  request.getParameter("addr1"),
-                                      request.getParameter("addr2"), request.getParameter("city"),
+                                      request.getParameter("addr2"), request.getParameter("city"), "",
                                       request.getParameter("state"), request.getParameter("zip5"),
                                       request.getParameter("zip4"));
             }
@@ -73,7 +73,7 @@ public abstract class BaseApiController extends HttpServlet
                 String state = (addressNode.has("state")) ? addressNode.get("state").asText() : "";
                 String zip5 = (addressNode.has("zip5")) ? addressNode.get("zip5").asText() : "";
                 String zip4 = (addressNode.has("zip4")) ? addressNode.get("zip4").asText() : "";
-                addresses.add(new Address(firm, addr1, addr2, city, state, zip5, zip4));
+                addresses.add(new Address(firm, addr1, addr2, city, "", state, zip5, zip4));
             }
         }
         catch(Exception ex) {

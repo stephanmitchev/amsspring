@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.usac.amsspring.model.Address;
 import org.usac.amsspring.model.AddressInquiryResult;
+import org.usac.amsspring.model.USPSAddress;
 import org.usac.amsspring.provider.AmsNativeProvider;
 
 /**
@@ -22,18 +23,17 @@ public class AddressValidateController
     @Autowired
     private AmsNativeProvider amsNativeProvider;
 
+
     @RequestMapping("/validate")
-    public Address validateAddress(@RequestParam(value="addr1") String addr1,
-                                   @RequestParam(value="addr2") String addr2,
-                                   @RequestParam(value="city") String city,
-                                   @RequestParam(value="state") String state,
-                                   @RequestParam(value="zip") String zip)
+    public USPSAddress validateAddress(@RequestParam(value="address1") String addr1,
+                                       @RequestParam(value="lastline") String lastline,
+                                       @RequestParam(value="urb") String urb)
     {
         Object responseObj;
 
-        Address inputAddress = new Address(addr1, addr2, city, state, zip);
+        Address inputAddress = new Address(addr1, "", "", urb, "", lastline);
         AddressInquiryResult result = amsNativeProvider.addressInquiry(inputAddress);
 
-        return result.getUspsAddress().getValidatedAddress();
+        return result.getUspsAddress();
     }
 }
